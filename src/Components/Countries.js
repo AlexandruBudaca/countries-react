@@ -15,7 +15,9 @@ const Countries = (props) => {
     <div>
       {props.err && errorData()}
       {props.loading ? (
-        <h1>Loading...</h1>
+        <div className="loading">
+          <h1>Loading...</h1>
+        </div>
       ) : (
         <div className="container">
           {props.data.map((countries, index) => (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Countries from "./Components/Countries";
+import Search from "./Components/Search";
+import Filter from "./Components/Filter";
 
 function App() {
   const [data, setData] = useState([]);
@@ -33,6 +35,11 @@ function App() {
         </a>
       </header>
       <div className="main-container">
+        <div className="SearchAndFilter">
+          <Search />
+          <Filter />
+        </div>
+
         <Countries data={data} err={hasError} loading={isLoading} />
       </div>
     </div>

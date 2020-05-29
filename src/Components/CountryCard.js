@@ -2,7 +2,7 @@ import React from "react";
 
 const CountryCard = (props) => {
   return (
-    <a className="link-country" href="/">
+    <a className="link-country" href="/" value={props.data.name}>
       <div className="card">
         <img src={props.data.flag} alt="country" />
         <h3>{props.data.name}</h3>
