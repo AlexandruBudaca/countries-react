@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../../src/logo.svg";
 import CountryCard from "./CountryCard";
 
 function errorData() {
@@ -16,6 +17,7 @@ const Countries = (props) => {
       {props.err && errorData()}
       {props.loading ? (
         <div className="loading">
+          <img src={logo} className="App-logo" alt="logo" />
           <h1>Loading...</h1>
         </div>
       ) : (
