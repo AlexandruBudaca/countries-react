@@ -1,22 +1,17 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Countries from "./Components/Countries";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Alexandru Budaca</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+        <h3>Where in the world?</h3>
+        <a>
+          <i className="fas fa-moon"></i>Dark Mode
         </a>
       </header>
+      <Countries />
     </div>
   );
 }
