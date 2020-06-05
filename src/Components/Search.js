@@ -1,9 +1,14 @@
 import React from "react";
 
-const Search = () => {
+const Search = ({ setSearchCountry }) => {
   return (
     <div className="search">
-      <input placeholder="Search"></input>
+      <input
+        placeholder="Search"
+        onChange={(e) => {
+          setSearchCountry(e.target.value);
+        }}
+      ></input>
     </div>
   );
 };

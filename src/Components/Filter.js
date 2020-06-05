@@ -4,10 +4,10 @@ const Filter = () => {
   return (
     <div className="filter">
       <select>
-        <option selected disabled hidden>
+        <option>
+          {/* <option selected disabled hidden> */}
           Filter by Origin
         </option>
-        <option></option>
       </select>
     </div>
   );

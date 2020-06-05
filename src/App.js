@@ -8,16 +8,12 @@ function App() {
   const [data, setData] = useState([]);
   const [hasError, setErrors] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchCountry, setSearchCountry] = useState("");
 
   async function fetchData(url) {
     setIsLoading(true);
     await fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error("Sorry! We didn't find any country");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((result) => setData(result))
       .catch((err) => setErrors(err));
     setIsLoading(false);
@@ -25,6 +21,12 @@ function App() {
   useEffect(() => {
     fetchData("https://restcountries.eu/rest/v2/all");
   }, []);
+
+  const filteredData = data.filter(
+    (country) =>
+      country.name.toLowerCase().includes(searchCountry.toLowerCase()) ||
+      country.capital.toLowerCase().includes(searchCountry.toLowerCase())
+  );
 
   return (
     <div className="App">
@@ -36,11 +38,14 @@ function App() {
       </header>
       <div className="main-container">
         <div className="SearchAndFilter">
-          <Search />
+          <Search
+            searchCountry={searchCountry}
+            setSearchCountry={setSearchCountry}
+          />
           <Filter />
         </div>
 
-        <Countries data={data} err={hasError} loading={isLoading} />
+        <Countries data={filteredData} err={hasError} loading={isLoading} />
       </div>
     </div>
   );
