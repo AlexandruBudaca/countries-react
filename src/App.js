@@ -3,30 +3,51 @@ import "./App.css";
 import Countries from "./Components/Countries";
 import Search from "./Components/Search";
 import Filter from "./Components/Filter";
+import CountryDetail from "./Components/CountryDetail";
 
 function App() {
   const [data, setData] = useState([]);
   const [hasError, setErrors] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchCountry, setSearchCountry] = useState("");
+  const [region, setRegion] = useState("");
+  const [detailData, setDetailData] = useState([]);
+  const [countryName, setCountryName] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  async function fetchData(url) {
-    setIsLoading(true);
+  async function fetchData(url, set) {
     await fetch(url)
       .then((response) => response.json())
-      .then((result) => setData(result))
+      .then((result) => set(result))
       .catch((err) => setErrors(err));
-    setIsLoading(false);
   }
-  useEffect(() => {
-    fetchData("https://restcountries.eu/rest/v2/all");
-  }, []);
+  async function fetchDetailsData(url) {
+    setIsLoaded(false);
+    await fetch(url)
+      .then((response) => response.json())
+      .then((result) => setDetailData(result))
+      .catch((err) => setErrors(err));
+    setIsLoaded(true);
+  }
 
-  const filteredData = data.filter(
+  useEffect(() => {
+    if (countryName === "") {
+    } else {
+      fetchDetailsData("https://restcountries.eu/rest/v2/name/" + countryName);
+    }
+
+    region === ""
+      ? fetchData("https://restcountries.eu/rest/v2/all/", setData)
+      : fetchData("https://restcountries.eu/rest/v2/region/" + region, setData);
+  }, [region, countryName]);
+
+  const searchInData = data.filter(
     (country) =>
       country.name.toLowerCase().includes(searchCountry.toLowerCase()) ||
       country.capital.toLowerCase().includes(searchCountry.toLowerCase())
   );
+  const handleRegion = (e) => {
+    setRegion(e.currentTarget.value);
+  };
 
   return (
     <div className="App">
@@ -42,10 +63,23 @@ function App() {
             searchCountry={searchCountry}
             setSearchCountry={setSearchCountry}
           />
-          <Filter />
+          <Filter handleRegion={handleRegion} />
         </div>
+        {countryName === "" && (
+          <Countries
+            data={searchInData}
+            err={hasError}
+            setCountryName={setCountryName}
+          />
+        )}
 
-        <Countries data={filteredData} err={hasError} loading={isLoading} />
+        {countryName !== "" && (
+          <CountryDetail
+            data={detailData}
+            setCountryName={setCountryName}
+            isLoaded={isLoaded}
+          />
+        )}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Countries = (props) => {
   return (
     <div>
       {props.err && errorData()}
-      {props.loading ? (
+      {props.data.length === 0 ? (
         <div className="loading">
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Loading...</h1>
@@ -23,7 +23,11 @@ const Countries = (props) => {
       ) : (
         <div className="container">
           {props.data.map((countries, index) => (
-            <CountryCard key={index} data={countries} />
+            <CountryCard
+              key={index}
+              data={countries}
+              setCountryName={props.setCountryName}
+            />
           ))}
         </div>
       )}
