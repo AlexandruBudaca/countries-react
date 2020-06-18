@@ -78,6 +78,7 @@ function App() {
             data={detailData}
             setCountryName={setCountryName}
             isLoaded={isLoaded}
+            borderData={data}
           />
         )}
       </div>
