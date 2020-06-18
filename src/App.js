@@ -53,9 +53,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h3>Where in the world?</h3>
-        <a className="darkBtn" href="/">
+        <button className="darkBtn" href="/">
           <i className="fas fa-moon"></i>Dark Mode
-        </a>
+        </button>
       </header>
       <div className="main-container">
         <div className="SearchAndFilter">
