@@ -68,7 +68,7 @@ const CountryDetail = ({ data, setCountryName, isLoaded, borderData }) => {
                 </div>
               </div>
               <div className="borders">
-                <span>Borders: </span>
+                <span>{data[0].borders.length === 0 ? "" : "Borders: "}</span>
                 {data[0].borders.slice(0, 3).map((border, index) => {
                   borderData.forEach((country) => {
                     if (country.alpha3Code.includes(border)) {
