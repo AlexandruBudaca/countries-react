@@ -67,6 +67,7 @@ h2 {
   background-color: var(--elements-color);
   border: none;
   text-decoration: none;
+  outline: none;
 }
 
 .darkBtn:hover {
