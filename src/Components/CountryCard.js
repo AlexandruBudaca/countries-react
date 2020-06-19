@@ -6,6 +6,7 @@ const CountryCard = (props) => {
       className="card"
       onClick={() => {
         props.setCountryName(props.data.name);
+        props.setShowSearchAndFilter(!props.showSearchAndFilter);
       }}
     >
       <img src={props.data.flag} alt="country" />

@@ -1,11 +1,18 @@
 import React from "react";
 
-const CountryDetail = ({ data, setCountryName, isLoaded, borderData }) => {
+const CountryDetail = ({
+  data,
+  setCountryName,
+  isLoaded,
+  borderData,
+  setShowSearchAndFilter,
+  showSearchAndFilter,
+}) => {
   return (
     <div className="">
       {!isLoaded ? (
         <div className="loading">
-          <h1>Loading...</h1>
+          <h2>Loading...</h2>
         </div>
       ) : (
         <div>
@@ -13,6 +20,7 @@ const CountryDetail = ({ data, setCountryName, isLoaded, borderData }) => {
             className="btn-back"
             onClick={() => {
               setCountryName("");
+              setShowSearchAndFilter(!showSearchAndFilter);
             }}
           >
             Back

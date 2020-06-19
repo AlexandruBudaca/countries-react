@@ -13,6 +13,8 @@ function App() {
   const [detailData, setDetailData] = useState([]);
   const [countryName, setCountryName] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [darkMode, setDarkMode] = useState("dark-mode");
+  const [showSearchAndFilter, setShowSearchAndFilter] = useState(true);
 
   async function fetchData(url, set) {
     await fetch(url)
@@ -48,28 +50,59 @@ function App() {
   const handleRegion = (e) => {
     setRegion(e.currentTarget.value);
   };
+  const darkModeChange = () => {
+    const root = document.documentElement;
 
+    if (darkMode === "light-mode") {
+      root.style.setProperty("--background-color", "hsl(0, 0%, 98%)");
+      root.style.setProperty("--text-color", "hsl(200, 15%, 8%)");
+      root.style.setProperty("--elements-color", "hsl(0, 0%, 100%)");
+      root.style.setProperty("--box-shadow", "2px 2px 8px #999999");
+      setDarkMode("dark-mode");
+    } else {
+      root.style.setProperty("--background-color", "hsl(207, 26%, 17%)");
+      root.style.setProperty("--text-color", "hsl(0, 0%, 100%)");
+      root.style.setProperty("--elements-color", "hsl(209, 23%, 22%)");
+      root.style.setProperty("--box-shadow", "2px 2px 8px #000");
+      setDarkMode("light-mode");
+    }
+  };
   return (
     <div className="App">
       <header className="App-header">
         <h3>Where in the world?</h3>
-        <button className="darkBtn" href="/">
-          <i className="fas fa-moon"></i>Dark Mode
+        <button
+          className="darkBtn"
+          onClick={() => {
+            darkModeChange();
+          }}
+        >
+          <i
+            className={darkMode === "light-mode" ? "fas fa-sun" : "fas fa-moon"}
+          ></i>
+          {darkMode === "light-mode" ? "Light Mode" : "Dark Mode"}
         </button>
       </header>
       <div className="main-container">
-        <div className="SearchAndFilter">
-          <Search
-            searchCountry={searchCountry}
-            setSearchCountry={setSearchCountry}
-          />
-          <Filter handleRegion={handleRegion} />
-        </div>
+        {showSearchAndFilter ? (
+          <div className="SearchAndFilter">
+            <Search
+              searchCountry={searchCountry}
+              setSearchCountry={setSearchCountry}
+            />
+            <Filter handleRegion={handleRegion} />
+          </div>
+        ) : (
+          ""
+        )}
+
         {countryName === "" && (
           <Countries
             data={searchInData}
             err={hasError}
             setCountryName={setCountryName}
+            setShowSearchAndFilter={setShowSearchAndFilter}
+            showSearchAndFilter={showSearchAndFilter}
           />
         )}
 
@@ -79,6 +112,8 @@ function App() {
             setCountryName={setCountryName}
             isLoaded={isLoaded}
             borderData={data}
+            setShowSearchAndFilter={setShowSearchAndFilter}
+            showSearchAndFilter={showSearchAndFilter}
           />
         )}
       </div>

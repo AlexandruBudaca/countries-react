@@ -27,6 +27,8 @@ const Countries = (props) => {
               key={index}
               data={countries}
               setCountryName={props.setCountryName}
+              setShowSearchAndFilter={props.setShowSearchAndFilter}
+              showSearchAndFilter={props.showSearchAndFilter}
             />
           ))}
         </div>
